@@ -11,13 +11,13 @@ struct GHFollowersTabView: View {
   
     var body: some View {
       TabView {
-        SearchView()
+        SearchView(viewModel: SearchViewModel())
           .tabItem {
             Image(systemName: "magnifyingglass")
             Text("Search")
           }
           
-        FollowerListView()
+        FavoritesListView()
           .tabItem {
             Image(systemName: "star.fill")
             Text("Favorites")

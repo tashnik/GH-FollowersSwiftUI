@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
   
-  @StateObject private var viewModel = SearchViewModel()
+  @StateObject var viewModel: SearchViewModel
   
     var body: some View {
       NavigationView {
@@ -31,21 +31,23 @@ struct SearchView: View {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 2))
           
           Spacer()
-          
-          Button {
-            if viewModel.username != "" {
-              print("Thank you, \(viewModel.username)")
-            } else {
-              viewModel.showAlert = true
+        
+          NavigationLink(destination: FollowersListView(userName: $viewModel.username), tag: 1, selection: $viewModel.selection) {
+            Button {
+              if viewModel.username == "" {
+                viewModel.showAlert = true
+              } else {
+                self.viewModel.selection = 1
+              }
+            } label: {
+              Text("Get Followers")
+                .font(.headline)
+                .frame(width: 260, height: 50)
+                .foregroundColor(.white)
+                .background(Color(.systemGreen))
+                .cornerRadius(10)
+                .padding(.bottom, 40)
             }
-          } label: {
-            Text("Get Followers")
-              .font(.headline)
-              .frame(width: 260, height: 50)
-              .foregroundColor(.white)
-              .background(Color(.systemGreen))
-              .cornerRadius(10)
-              .padding(.bottom, 40)
           }
         }
       }
@@ -57,6 +59,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-      SearchView()
+      SearchView(viewModel: SearchViewModel())
     }
 }

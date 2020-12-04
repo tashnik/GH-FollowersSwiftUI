@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct GHFollowers_SwiftUIApp: App {
-    var body: some Scene {
-        WindowGroup {
-            GHFollowersTabView()
-        }
+  
+  var body: some Scene {
+    WindowGroup {
+      GHFollowersTabView()
     }
+  }
 }

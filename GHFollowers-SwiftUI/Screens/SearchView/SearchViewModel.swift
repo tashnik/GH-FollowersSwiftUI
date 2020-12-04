@@ -11,4 +11,5 @@ final class SearchViewModel: ObservableObject {
   
   @Published var username: String = ""
   @Published var showAlert: Bool = false
+  @Published var selection: Int? = nil
 }

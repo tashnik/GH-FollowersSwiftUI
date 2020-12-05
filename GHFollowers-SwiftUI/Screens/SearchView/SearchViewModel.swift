@@ -5,7 +5,7 @@
 //  Created by Tashnik on 12/3/20.
 //
 
-import Foundation
+import SwiftUI
 
 final class SearchViewModel: ObservableObject {
   

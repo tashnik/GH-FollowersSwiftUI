@@ -11,7 +11,7 @@ struct GHFollowersTabView: View {
   
     var body: some View {
       TabView {
-        SearchView(viewModel: SearchViewModel())
+        SearchView()
           .tabItem {
             Image(systemName: "magnifyingglass")
             Text("Search")

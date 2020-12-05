@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
   
-  @StateObject var viewModel: SearchViewModel
+  @StateObject var viewModel = SearchViewModel()
   
     var body: some View {
       NavigationView {
@@ -32,7 +32,7 @@ struct SearchView: View {
           
           Spacer()
         
-          NavigationLink(destination: FollowersListView(userName: $viewModel.username), tag: 1, selection: $viewModel.selection) {
+          NavigationLink(destination: FollowersListView(username: $viewModel.username), tag: 1, selection: $viewModel.selection) {
             Button {
               if viewModel.username == "" {
                 viewModel.showAlert = true

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct FollowerDetailView: View {
-    var body: some View {
-        Text("Follower Detail View")
-    }
+  
+  var body: some View {
+    Text("User name")
+  }
 }
 
 struct FollowerDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        FollowerDetailView()
-    }
+  static var previews: some View {
+    FollowerDetailView()
+  }
 }

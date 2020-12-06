@@ -11,6 +11,7 @@ struct FollowersListView: View {
   
   @Binding var username: String
   @StateObject var viewModel = FollowerListViewModel()
+  @State var followerCount = 0
   
   let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
   
@@ -23,6 +24,17 @@ struct FollowersListView: View {
               .onTapGesture {
                 viewModel.isShowingDetailView = true
               }
+              .onAppear {
+                followerCount += 1
+                print(followerCount)
+                
+                if followerCount == 100 {
+                  guard viewModel.hasMoreFollowers else { return }
+                  followerCount = 0
+                  viewModel.page += 1
+                  viewModel.getFollowers(username: username, page: viewModel.page)
+                }
+              }
           }
         }
       }
@@ -32,13 +44,16 @@ struct FollowersListView: View {
     }
     .navigationBarTitle(username)
     .onAppear {
-      viewModel.getFollowers(username: username, page: 1)
+      viewModel.getFollowers(username: username, page: viewModel.page)
     }
     .alert(item: $viewModel.alertItem) { alertItem in
       Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
     }
     .sheet(isPresented: $viewModel.isShowingDetailView, content: {
       FollowerDetailView()
+    })
+    .sheet(isPresented: $viewModel.hasNoFollowers, content: {
+      NoFollowersView()
     })
   }
 }

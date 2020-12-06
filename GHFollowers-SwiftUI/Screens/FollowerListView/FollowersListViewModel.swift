@@ -13,6 +13,10 @@ final class FollowerListViewModel: ObservableObject {
   @Published var alertItem: AlertItem?
   @Published var isLoading = false
   @Published var isShowingDetailView = false
+  @Published var hasMoreFollowers = true
+  @Published var page = 1
+  @Published var hasNoFollowers = false
+  @Published var searchText = ""
   
   func getFollowers(username: String, page: Int) {
     isLoading = true
@@ -23,8 +27,12 @@ final class FollowerListViewModel: ObservableObject {
         switch result {
         
         case .success(let followers):
-          self.followers = followers
+          if followers.count < 100 { hasMoreFollowers = false }
+          self.followers.append(contentsOf: followers)
           
+          if self.followers.isEmpty {
+            hasNoFollowers = true
+          }
         case .failure(let error):
           switch error {
           
